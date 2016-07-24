@@ -27,8 +27,38 @@ likely to cause segmentation fault.
 Installation
 ------------
 
-To install pypolymake you currently need Sage but the library is mostly Sage
-agnostic. The package can be installed through PyPI via::
+If Polymake (or its dependencies) are installed in a nonstandard
+location, first set and export CXXFLAGS and LDFLAGS accordingly::
+
+    $ export LDFLAGS="-L/path/to/lib/dir $LDFLAGS"
+    $ export CXXFLAGS="-I /path/to/include/dir $CXXFLAGS"
+
+Also, in particular on OS X, make sure that libperl is found.  The
+correct library directory can be found by typing::
+
+    $ perl -MExtUtils::Embed -e ldopts
+    -arch i386 -arch x86_64 -fstack-protector  -L/System/Library/Perl/5.18/darwin-thread-multi-2level/CORE -lperl
+
+Use this information as follows::
+
+    $ export LDFLAGS="-L/System/Library/Perl/5.18/darwin-thread-multi-2level/CORE/ $LDFLAGS"
+
+The package can now be installed through PyPI via::
+
+    $ pip install pypolymake --user
+
+Alternatively, you can download (or clone) this repository and run the
+command::
+
+    $ python setup.py install --user
+
+Installation within Sage
+------------------------
+
+Within "sage -sh", all environment variables are automatically set
+correctly.
+
+The package can be installed through PyPI via::
 
     $ sage -pip install pypolymake --user
 
@@ -38,7 +68,7 @@ you can download (or clone) this repository and run the command::
 
     $ sage -python setup.py install --user
 
-On OS X, need to make sure that libperl is found::
+On OS X, you need to make sure that libperl is found::
 
     $ sage -sh
     (sage-sh) $ export LDFLAGS="-L/System/Library/Perl/5.18/darwin-thread-multi-2level/CORE/ $LDFLAGS"
